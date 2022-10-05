@@ -100,7 +100,7 @@ class AiSpeech(object):
             return False
 
 
-    def tts(self,url = None,text=None,speaker="zsmeif"):
+    def tts(self,url = None,text=None,speaker="lchuam"):
         if url is None:
             url = "https://api.talkinggenie.com/api/v1/ba/tts"
 
@@ -198,11 +198,12 @@ if __name__ == "__main__":
     b_wav_data = ai.tts(text = chat_text)
 
     text_self = "您好！我是子书美，来自数字虚拟世界。我可以告诉你你想知道的一切，想与我面对面聊天吗！快来找我吧！"
+
     dm_tts_data = ai.dm_tts(text = text_self)
     b_wav_data = ai.tts(text = text_self)
 
     import wave
-    wav_path = "F:/test.wav"
+    wav_path = "C:\\Users\\wangy\\Desktop\\test.wav"
     f = open(wav_path,"wb")
     f.write(b_wav_data)
     f.close()

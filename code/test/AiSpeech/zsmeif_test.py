@@ -112,7 +112,7 @@ def worker(q_input, q_output, i):
             weights = np.zeros((output_data.shape[0], BS_CONUNT))
             # print(weights.shape)
 
-            weights[:, var_bs_index] = output_data
+            weights[:, var_bs_index] = output_data # (20,116), only predict some weights
             weights[:, const_bs_index] = const_bs_value
 
             weights1 = np.zeros((output_data.shape[0], BS_CONUNT))

@@ -4,6 +4,7 @@
 
 # C extensions
 *.so
+*.iml
 
 # Distribution / packaging
 .Python
@@ -124,3 +125,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+*.xml
+*.pak
+DataForAudio2Bs/
+*.gitignore
+
