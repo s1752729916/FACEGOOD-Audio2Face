@@ -116,7 +116,7 @@ def worker(q_input, q_output, i):
             weights[:, var_bs_index] = output_data
             weights[:, const_bs_index] = const_bs_value
 
-            weights1 = np.zeros((output_data.shape[0], BS_CONUNT))
+            weights1 = np.zeros((output_data.shape[0], BS_CONUNT)) # (20,116)
             for i in range(len(bs_name_index)):
                 weights1[:, i] = weights[:, bs_name_index[i]]
 
