@@ -115,7 +115,7 @@ def convert_to_arkit_df(df, ARKIT_names, mapping_one, mapping_max):
         df_arkit[k] = df[v].max(axis=1)
     return df_arkit
 
-def bs_to_arkit():
+def bs_to_arkit_frame(input_arkit):
     pass
 
 

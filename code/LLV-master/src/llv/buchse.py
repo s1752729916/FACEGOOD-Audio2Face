@@ -28,6 +28,7 @@ class Buchse():
                 self.s.bind((host, port))
             else:
                 self.s.connect((host, port))
+                print('connect')
         except socket.error as e:        
             raise Exception(f'Could not connect to server. ({e})')
 

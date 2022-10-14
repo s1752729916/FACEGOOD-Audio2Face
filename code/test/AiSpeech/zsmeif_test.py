@@ -14,7 +14,6 @@ from os.path import abspath, dirname, join
 import codecs
 import json
 import wave
-
 # *******************************************
 # *******************************************
 package_path = "./"
@@ -83,7 +82,7 @@ bs_name_index = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 11, 13, 14, 15, 16, 17, 18, 
                  104, 106, 107, 108, 109, 110, 111, 112, 113, 114, 1, 115]
 
 BS_CONUNT = 116
-pbfile_path = join(package_path, '0317_dataSet5_var_epoch16_22075.pb')
+pbfile_path = join(package_path, 'zsmeif.pb')
 print(pbfile_path)
 CPU_Thread = AiSpeechConfig['config']['tensorflow']['cpu']
 CPU_Frames = AiSpeechConfig['config']['tensorflow']['frames']

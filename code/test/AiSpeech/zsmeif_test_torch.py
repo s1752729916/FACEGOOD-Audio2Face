@@ -14,7 +14,6 @@ from os.path import abspath, dirname, join
 import codecs
 import json
 import wave
-
 # *******************************************
 # *******************************************
 package_path = "./"
@@ -220,6 +219,7 @@ def main(fun_socket_send):
                         f_num = 0
                         f_btime = time.time()
                         for weight in sound_animation.yield_output_data():
+                            # weight:(116,)
                             f_num += 1
                             # f_time = time.time()
                             if is_first:
