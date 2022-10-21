@@ -14,7 +14,6 @@ from os.path import abspath, dirname, join
 import codecs
 import json
 import wave
-
 # *******************************************
 # *******************************************
 package_path = "./"
@@ -84,7 +83,7 @@ bs_name_index = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 11, 13, 14, 15, 16, 17, 18, 
 
 BS_CONUNT = 116
 pbfile_path = join(package_path, 'zsmeif.pb')
-
+print(pbfile_path)
 CPU_Thread = AiSpeechConfig['config']['tensorflow']['cpu']
 CPU_Frames = AiSpeechConfig['config']['tensorflow']['frames']
 
@@ -107,7 +106,8 @@ def worker(q_input, q_output, i):
         input_data = q_input.get()
         for output_wav in input_data:
             output_lpc = c_lpc(output_wav)
-            output_data = get_weight(output_lpc)
+            output_data = get_weight(output_lpc) # (20,37)
+            print(output_data)
             # 赋值
             weights = np.zeros((output_data.shape[0], BS_CONUNT))
             # print(weights.shape)
@@ -115,7 +115,7 @@ def worker(q_input, q_output, i):
             weights[:, var_bs_index] = output_data # (20,116), only predict some weights
             weights[:, const_bs_index] = const_bs_value
 
-            weights1 = np.zeros((output_data.shape[0], BS_CONUNT))
+            weights1 = np.zeros((output_data.shape[0], BS_CONUNT)) # (20,116)
             for i in range(len(bs_name_index)):
                 weights1[:, i] = weights[:, bs_name_index[i]]
 

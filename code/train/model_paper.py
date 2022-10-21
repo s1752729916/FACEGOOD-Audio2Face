@@ -16,6 +16,7 @@
 import tensorflow as tf
 import numpy as np
 
+
 def net(input_data, outputSize, keep_pro):
     E = 16
     conv1 = tf.layers.conv2d(inputs=input_data,filters=72,kernel_size=[3, 1],padding="same",activation=tf.nn.relu,strides=[2,1])
@@ -60,7 +61,6 @@ def losses(y, y_, emotion_input):
     ### 计算loss_M
     split_y = tf.split(y,2,0) #参数分别为：tensor，拆分数，维度
     split_y_ = tf.split(y_,2,0) #参数分别为：tensor，拆分数，维度
-    # print(10)
     y0 = split_y[0]
     y1 = split_y[1]
     y_0 = split_y_[0]
