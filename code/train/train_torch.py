@@ -3,8 +3,8 @@ import torch
 from model_torch import *
 from torch.utils.data import Dataset,DataLoader,TensorDataset
 import os
-epochs = 16
-dataSet = 'dataSet5'
+epochs = 100
+dataSet = 'dataSet16'
 project_dir = '/home/shaomingqi/projects/facegood'
 data_dir = os.path.join(os.path.join(project_dir,'DataForAudio2Bs/train/'),dataSet)
 logs_dir = os.path.join(project_dir,'logs')

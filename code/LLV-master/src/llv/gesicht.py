@@ -12,6 +12,8 @@ import struct
 import json
 import base64
 
+import numpy as np
+
 
 def remap(x, in_min, in_max, out_min, out_max):
   return min(in_max, (x - in_min)) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -33,6 +35,8 @@ class FaceFrame:
     PACKET_MAX_SIZE = 774
 
     # Blendshape names:
+
+
     # See https://docs.unrealengine.com/en-US/API/Runtime/AugmentedReality/EARFaceBlendShape/index.html
     FACE_BLENDSHAPE_NAMES = [
         "EyeBlinkLeft",
@@ -103,12 +107,12 @@ class FaceFrame:
     def from_default_blendshapes(blendshapes,frame_number,fps=60):
         # blendshapes: {'bs_name':bs_value}
         # given blendshapes and frame_number, return a frame object that can be directlysent to LiveLink
-        frame = FaceFrame()
+        frame = FaceFrame(r'C:\Users\wangy\Desktop\bs_names.npy')
 
         sub_frame = frame_number * 0.000614 + 0.121
         frame.frame_time = {"frame_number": 1337 + frame_number, "sub_frame": sub_frame, "numerator": 60,
                             "denominator": 1}
-        for name in FaceFrame.FACE_BLENDSHAPE_NAMES:
+        for name in frame.BS_NAMES_CUSTOM:
             if name in blendshapes.keys():
                 frame.blendshapes[name] = blendshapes[name]
             else:
@@ -164,7 +168,7 @@ class FaceFrame:
         return frame
 
 
-    def __init__(self):
+    def __init__(self,bs_names_file=None):
         self.data = b''
         self.size = 0
         self.current_position = 0
@@ -176,6 +180,13 @@ class FaceFrame:
 
         self.blendshape_count = 0
         self.blendshapes = {}
+
+        # 自定义bs_names
+        if bs_names_file:
+            print(bs_names_file)
+            bs_names_np = np.load(bs_names_file,allow_pickle=True)
+            self.BS_NAMES_CUSTOM = bs_names_np.tolist()
+            self.BS_COUNT = len(self.BS_NAMES_CUSTOM)
 
 
     def _check_size(self):

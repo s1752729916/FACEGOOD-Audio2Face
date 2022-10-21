@@ -75,11 +75,12 @@ class loss_torch(nn.Module):
     def __init__(self):
         super(loss_torch, self).__init__()
     def forward(self,y,y_,emotion_input):
+        # y,y_: (128,37)
         # 计算loss_P
         loss_P = torch.mean((y-y_) * (y-y_))
 
         # 计算loss_M
-        split_y = torch.split(y,2,0)
+        split_y = torch.split(y,2,0) # 这里的分割似乎有问题，论文里是分割出相邻帧
         split_y_ = torch.split(y_,2,0)
         y0 = split_y[0]
         y1 = split_y[1]

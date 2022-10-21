@@ -61,7 +61,6 @@ def losses(y, y_, emotion_input):
     ### 计算loss_M
     split_y = tf.split(y,2,0) #参数分别为：tensor，拆分数，维度
     split_y_ = tf.split(y_,2,0) #参数分别为：tensor，拆分数，维度
-    # print(10)
     y0 = split_y[0]
     y1 = split_y[1]
     y_0 = split_y_[0]

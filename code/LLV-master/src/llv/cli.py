@@ -1,7 +1,9 @@
 """    
     Virtual Object MItigation Tool
+
     2021-∞ (c) blurryroots innovation qanat OÜ. All rights reserved.
     See license.md for details.
+
     https://think-biq.com
 """
 
@@ -15,9 +17,9 @@ import os
 import gzip
 import csv
 import math
-from .gesicht import FaceFrame, remap
-from .buchse import Buchse
-from .__init__ import version as get_version
+from gesicht import FaceFrame, remap
+from buchse import Buchse
+from __init__ import version as get_version
 
 
 def tween(a, b, frames):
@@ -92,6 +94,16 @@ def read_frames(filepath, loop = False):
 
         keep_reading = loop
 
+def send_one_frame(buchse,blendshapes,frame_number):
+    # given a blendshapes dict and its frame number, sent a frame to LiveLink, return True/False
+    # 该函数只负责发送，不负责延时
+    frame = FaceFrame.from_default_blendshapes(blendshapes, frame_number)
+    bytes_sent = buchse.sprech(frame.data, frame.size)
+    if bytes_sent != frame.size:
+        return False
+    else:
+        return True
+
 
 def playback(host, port, filepath, fps, loop = True):
     fps = clamp(fps, 1, 76) # https://stackoverflow.com/a/1133888
@@ -109,6 +121,9 @@ def playback(host, port, filepath, fps, loop = True):
             print(f'Start sending {frame_count} frames of version {version} @{fps}fps ...')
 
         frame = FaceFrame.from_raw(frame_data, len(frame_data))
+        # new_frame = FaceFrame.from_default_blendshapes(frame.blendshapes,frame_count)
+        # frame = new_frame
+        # print('frame:',frame.blendshapes)
 
         bytes_sent = buchse.sprech(frame.data, frame.size)
         if bytes_sent != frame.size:
@@ -352,7 +367,7 @@ def fbx_meta(fbx_meta_filepath, library_filepath, output_path):
 
     tween_frames = math.floor(60.0 / math.floor(max_len_values / max_duration))
     if 1 > tween_frames:
-        raise Exception(f'Weirdness! 1 > (60 / ({max_len_values} (max_len_values) / {max_duration} (max_duration)))')
+        raise Exception(f'Weirdness! 1 > (60 / ({max_len_values} (max_len_values) / {max_duration} (max_duration)))')
 
     for name in shape_values:
         if max_len_values != len(shape_values[name]):
